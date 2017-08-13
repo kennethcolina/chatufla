@@ -20,14 +20,14 @@ const signaling = (server) => {
 
 	  console.log('usuario conectou');
 	  socket.on('entrar', (msg) => {
-		  if (users[msg]) {
-			  socket.emit('entrar',JSON.stringify({"error":"Usuario "+msg+" já existe!"}));
+		  if (users[msg.email]) {
+			  socket.emit('entrar',JSON.stringify({"error":"Usuario "+msg.email+" já existe!"}));
 			  return;
 		  }
-	    console.log(msg+' entrou');
-		users[msg] = {"socket": socket};
-	    socket.emit('entrar' , JSON.stringify({"nomeLogado":msg}));
-		socket.username = msg;
+	    console.log(msg.nome+' entrou');
+			users[msg.email] = {"socket": socket};
+	    socket.emit('entrar' , JSON.stringify({"nomeLogado":msg.nome}));
+			socket.username = msg.nome;
 	    io.emit('lista', JSON.stringify(Object.keys(users)));
 	  });
 

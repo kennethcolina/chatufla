@@ -5,7 +5,6 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	$scope.tipo = null;
 
   $scope.peer = null;
-	$scope.destino = null;
 	$scope.audio = new Audio();
 
   var socket = io();
@@ -14,7 +13,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	$scope.btnAtender = false;
 
   $scope.entrar = function() {
-    socket.emit('entrar', $scope.usuario.nome);
+		socket.emit('entrar', $scope.usuario);
   };
 
   $scope.entrar();
@@ -59,7 +58,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 			isInCall = false;
 			isCaller = false;
 			$scope.call = false;
-			$scope.chat = true;
+			$scope.chat = false; //alterei
 		};
 	};
 
@@ -89,9 +88,8 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 			isInCall = false;
 			isCaller = false;
 			$scope.call = false;
+			$scope.chat = false; //alterei
 			$scope.$apply();
-			$scope.chat = true;
-
 		}
 		if (chamada.dados.oferta) {
 			if (!isInCall) {
@@ -150,7 +148,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	};
 
 	var ice = {"iceServers": [
-		{"urls": "stun:stun.l.google.com:19302"}
+		{"url": "stun:stun.l.google.com:19302"}
 	]};
 
 	var pc = null;
@@ -161,8 +159,9 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	var callbackSuccess = function(stream) {
 		if ($scope.tipo == "video") {
 			$scope.video = document.querySelector('#video');
-//			$scope.video.src = window.URL.createObjectURL(stream);
-			$scope.video.srcObject = window.stream;
+			$scope.video.src = window.URL.createObjectURL(stream);
+			//$scope.video.src = window.stream; //inventei
+			//$scope.video.srcObject = window.stream;
 		}
 		getMediaSuccess(stream);
 	};
@@ -263,13 +262,14 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 		}
 
 		function onStreamAdded(evt) {
-			var url = evt.stream;
+			var url = URL.createObjectURL(evt.stream);
 			console.log('entrei em stream add');
 			window.stream = url;
 
 			if ($scope.tipo == 'video') {
 				console.log("Eu estou aqui!, VIDEO");
 				setVideo(url);
+				setAudio(url); //adicionei para parar o ring.mp3
 			} else if ($scope.tipo == 'voz') {
 				console.log("Eu estou aqui!, VOZ");
 				setAudio(url);
@@ -294,13 +294,12 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	}
 
 	$scope.chatMessage = function(quem) {
-		$scope.destino = quem;
+		$scope.peer = quem;
 		$scope.chat = true;
 	};
 
 	$scope.voiceCall = function() {
 		$scope.tipo = "voz";
-		$scope.peer = $scope.destino;
 		isCaller = true;
 		$scope.callMsg = "Ligando para "+$scope.peer;
 		$scope.call = true;
@@ -312,7 +311,6 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 
 	$scope.videoCall = function() {
 		$scope.tipo = "video";
-		$scope.peer = $scope.destino;
 		isCaller = true;
 		$scope.callMsg = "Ligando para "+$scope.peer;
 		$scope.call = true;
