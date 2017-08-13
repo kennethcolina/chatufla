@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="webrtc">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ChatUfla</title>
+
+  <link rel="stylesheet" href="../stylesheets/cadastro.css">
+	<link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../stylesheets/animate.css">
+</head>
+<body ng-controller="cadastroCtrl">
+  <div class="register-page">
+	  <div class="form">
+		<form class="register-form">
+		  <img alt="logo_ufla" class="logo" src="images/logo_ufla.png"  width="188" height="77"/>
+		  <input ng-model="usuario.nome" type="text" placeholder="Nome"/>
+			<input ng-model="usuario.email" type="text" placeholder="Email"/>
+			<input ng-model="usuario.curso" type="curso" placeholder="Curso"/>
+		  <input ng-model="usuario.confirmaSenha" type="password" placeholder="Senha"/>
+		  <input ng-model="usuario.senha" type="password" placeholder="Confirmação de senha"/>
+		  <button type="submit" ng-click="cadastrar()">Criar</button>
+		  <p class="message">Já está registrado? <a ng-href="/">Entre!</a></p>
+		</form>
+		</div>
+	</div>
+
+	<script src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+	<script src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../javascripts/lib/angular.js"></script>
+	<script src="../javascripts/lib/angular-route.js"></script>
+	<script src="../javascripts/lib/angular-animate.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/controllers/cadastroCtrl.js"></script>
+	<script src="../javascripts/lib/angular-local-storage.js"></script>
+</body>
+</html>

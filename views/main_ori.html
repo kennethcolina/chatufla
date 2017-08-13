@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="webrtc">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ChatUfla</title>
+
+	<link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../stylesheets/animate.css">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+
+</head>
+<body ng-controller="mainCtrl">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="jumbotron col-sm-6 col-sm-offset-3 animated zoomIn guttedCol">
+				<h1 class="text-center">ChatUfla</h1>
+			</div>
+		</div>
+		<div class="row">
+			<h6>Peer: {{ peer }}</h6>
+			<div class="col-sm-4 col-sm-offset-4 routeAnimate guttedCol">
+				<div class="routeAnimate" ng-if="route == 'list'">
+					<h6 class='text-success pull-right'>Logado como {{ usuario.nome }}. <a href="#" class="link" ng-click="logout()">Sair</a></h6><br/>
+					<table class="table table-hover table-bordered table-condensed">
+						<tr>
+							<td class="text-center"><h3>Usuários conectados</h3></td>
+						</tr>
+						<tr ng-hide="list.length" class="itemUser">
+							<td>
+								<h5 class="text-center text-warning"><< Nenhum Usuário >></h5>
+							</td>
+						</tr>
+						<tr ng-repeat="user in list" class="itemUser">
+							<td ng-mouseover="hoverUser(user)" ng-mouseleave="hoverUser()" ng-class="{success: hoveredUser == user}">
+								<h5 class="pull-left">{{ user }}</h5>
+								<button class="btn btn-info pull-right" ng-click="video(user)">
+									<span class="glyphicon glyphicon-facetime-video"></span> Video
+								</button>
+								<button class="btn btn-info pull-right" ng-click="call(user)">
+									<span class="glyphicon glyphicon-earphone"></span> Ligar
+								</button>
+								<button class="btn btn-info pull-right" ng-click="chat(user)">
+									<span class="glyphicon glyphicon-comment"></span> Chat
+								</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="routeAnimate" ng-if="route == 'call'">
+					<h4 class="text-info" ng-bind="callMsg"></h4><br/>
+				<!--	<audio id="audioCall" data-ng-src="audioSrc" autoplay></audio>-->
+					<button class="btn btn-danger btn-block btn-lg" ng-click="desligar()" ng-hide="btnAtender">
+						Desligar <span class="glyphicon glyphicon-phone-alt"></span>
+					</button>
+					<button class="btn btn-success btn-block btn-lg" ng-click="atender()" ng-show="btnAtender">
+						<span class="glyphicon glyphicon-earphone"></span> Atender
+					</button>
+				</div>
+				<div class="routeAnimate" ng-if="route == 'error'">
+				<h1>Desculpe, mas não conseguimos ter acesso ao seu microfone =/</h1>
+				</div>
+
+  <script src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+  <script src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="../javascripts/lib/angular.min.js"></script>
+  <script src="../javascripts/lib/angular-route.js"></script>
+  <script src="../javascripts/lib/angular-animate.min.js"></script>
+  <script src="../javascripts/lib/socket.io.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/controllers/mainCtrl.js"></script>
+	<script src="../javascripts/lib/angular-local-storage.js"></script>
+  <!-- <script src="../javascripts/myService.js"></script> -->
+</body>
+</html>

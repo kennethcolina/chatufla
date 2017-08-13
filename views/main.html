@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="webrtc">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ChatUFLA</title>
+
+		<!--<link rel="stylesheet" href="../stylesheets/chat.css">-->
+		<link rel="stylesheet" href="../stylesheets/chat.css">
+		<link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="../stylesheets/animate.css">
+		<!--<link rel="stylesheet" href="../stylesheets/style.css">-->
+
+	</head>
+
+	<body ng-controller="mainCtrl">
+
+		<div class="navbar navbar-default navbar-static-top">
+			<div class="container">
+			  <ul class="nav navbar-nav">
+			    <a href="/" class="navbar-brand"><i class="ion-images"></i> ChatUFLA</a>
+			    <li><a href="/main">Home</a></li>
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+			    <li><a>{{ usuario.nome }}</a></li>
+					<li><a href="/">Log out</a></li>
+			  </ul>
+			</div>
+		</div>
+
+		<div id="wrapper">
+			<div class="message-container">
+				<div class="message-north">
+					<ul class="message-user-list">
+						<li>
+							<!-- listar usuarios onlines -->
+							<div class="routeAnimate">
+								<table class="table table-hover table-bordered table-condensed">
+									<tr>
+										<td id="usuarios" class="text-center"><h3>Usuários conectados</h3></td>
+									</tr>
+									<tr ng-hide="list.length" class="itemUser">
+										<td>
+											<h5 class="text-center text-warning"><< Nenhum Usuário >></h5>
+										</td>
+									</tr>
+									<tr ng-repeat="user in list" class="itemUser">
+										<td ng-mouseover="hoverUser(user)" ng-mouseleave="hoverUser()" ng-class="{success: hoveredUser == user}">
+											<h5 class="pull-left">{{ user }}</h5><br/>
+											<button class="btn btn-info pull-right" ng-click="chatMessage(user)">
+												<span class="glyphicon glyphicon-comment"></span>
+											</button>
+											<h5 class="pull-left"> {{ user.curso }}</h5
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!-- (fim) listar usuarios onlines -->
+						</li>
+					</ul>
+
+					<div class="message-thread" ng-class="tipo == 'video'? 'customizada' : 'message-thread'">
+						<div ng-if="chat == true">
+							<div class="audio-video">
+									<button type="button" class="btn btn-info pull-right btn-circle btn-lg" ng-click="videoCall()">
+										<span class="glyphicon glyphicon-facetime-video"></span>
+									</button>
+								<button type="button" class="btn btn-info pull-right btn-circle btn-lg" ng-click="voiceCall()">
+									<span class="glyphicon glyphicon-earphone"></span>
+								</button>
+							</div>
+						</div>
+						<div class="video" ng-show="tipo == 'video' && call">
+							<video id="video" autoplay></video>
+						</div>
+					</div>
+				</div>
+
+				<div class="message-south">
+					<textarea cols="20" rows="3"></textarea>
+					<button>Enviar</button>
+				</div>
+				<div id="chamada" class="routeAnimate" ng-show="call">
+					<h4 class="text-info" ng-bind="callMsg"></h4><br/>
+				<!--	<audio id="audioCall" data-ng-src="audioSrc" autoplay></audio>-->
+					<button class="btn btn-danger btn-block btn-lg" ng-click="desligar()" ng-hide="btnAtender">
+						Desligar <span class="glyphicon glyphicon-phone-alt"></span>
+					</button>
+					<button class="btn btn-success btn-block btn-lg" ng-click="atender()" ng-show="btnAtender">
+						<span class="glyphicon glyphicon-earphone"></span> Atender
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="routeAnimate" ng-if="route == 'error'">
+		<h1>Desculpe, mas não conseguimos ter acesso ao seu microfone =/</h1>
+		</div>
+
+		<script src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+		<script src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../javascripts/lib/angular.min.js"></script>
+		<script src="../javascripts/lib/angular-route.js"></script>
+		<script src="../javascripts/lib/angular-animate.min.js"></script>
+		<script src="../javascripts/lib/socket.io-1.3.5.js"></script>
+		<script src="../javascripts/app.js"></script>
+		<script src="../javascripts/controllers/mainCtrl.js"></script>
+		<!--<script src="../javascripts/controllers/mainCtrl_video.js"></script>-->
+		<script src="../javascripts/lib/angular-local-storage.js"></script>
+	</body>
+</html>

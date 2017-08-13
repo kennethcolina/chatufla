@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="webrtc">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ChatUfla</title>
+
+	<link rel="stylesheet" href="../stylesheets/login.css">
+	<link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../stylesheets/animate.css">
+</head>
+<body ng-controller="loginCtrl">
+	<div class="login-page">
+	  <div class="form">
+	    <form class="login-form">
+		  <img alt="logo_ufla" class="logo" src="images/logo_ufla.png"  width="188" height="77" />
+	      <input ng-model="usuario.email" type="text" placeholder="Email"/>
+	      <input ng-model="usuario.senha" type="password" placeholder="Senha"/>
+				<button type="submit" ng-click="submit()">login</button>
+	      <p class="message">Não está registrado? <a href="./cadastro">Crie a sua conta!</a></p>
+	    </form>
+	  </div>
+	</div>
+
+	<script src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+	<script src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../javascripts/lib/angular.js"></script>
+	<script src="../javascripts/lib/angular-route.js"></script>
+	<script src="../javascripts/lib/angular-animate.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<!-- <script src="../javascripts/myService.js"></script> -->
+	<script src="../javascripts/controllers/loginCtrl.js"></script>
+	<script src="../javascripts/lib/angular-local-storage.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="webrtc">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>ChatUFLA</title>
+
+		<!--<link rel="stylesheet" href="../stylesheets/chat.css">-->
+		<link rel="stylesheet" href="../stylesheets/chat.css">
+		<link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="../stylesheets/animate.css">
+		<!--<link rel="stylesheet" href="../stylesheets/bootstrap/css/bootstrap.min.css">
+	  <link rel="stylesheet" href="../stylesheets/animate.css">-->
+	</head>
+
+	<body ng-controller="mainCtrl">
+
+		<div class="navbar navbar-default navbar-static-top">
+			<div class="container">
+			  <ul class="nav navbar-nav">
+			    <a href="/" class="navbar-brand"><i class="ion-images"></i> ChatUfla</a>
+			    <li><a href="#/">Home</a></li>
+			  </ul>
+			  <ul class="nav navbar-nav navbar-right">
+					<li ng-if="isAuthenticated()"><a ng-href="/" class="link" ng-click="logout()">Sair</a></li>
+			    <li>
+			      <a href="http://instagram.com/{{currentUser.username}}">
+			        <img class="media-object img-rounded" ng-src="{{currentUser.picture}}">
+			        {{usuario.nome}}
+			      </a>
+			    </li>
+			  </ul>
+			</div>
+		</div>
+<!--
+		<div id="wrapper">
+			<div class="message-container">
+				<div class="message-north">
+					<ul class="message-user-list">
+						<li>
+<!-- -->
+		<div id="wrapper">
+					<ul class="message-user-list">
+						<li>
+							<!-- listar usuarios onlines -->
+							<div class="routeAnimate" ng-if="route == 'list'">
+								<table class="table table-hover table-bordered table-condensed">
+									<tr>
+										<td class="text-center"><h3>Usuários conectados</h3></td>
+									</tr>
+									<tr ng-hide="list.length" class="itemUser">
+										<td>
+											<h5 class="text-center text-warning"><< Nenhum Usuário >></h5>
+										</td>
+									</tr>
+									<tr ng-repeat="user in list" class="itemUser">
+										<td ng-mouseover="hoverUser(user)" ng-mouseleave="hoverUser()" ng-class="{success: hoveredUser == user}">
+											<h5 class="pull-left">{{ user }}</h5>
+											<button class="btn btn-info pull-right" ng-click="video(user)">
+												<span class="glyphicon glyphicon-facetime-video"></span>
+											</button>
+											<button class="btn btn-info pull-right" ng-click="call(user)">
+												<span class="glyphicon glyphicon-earphone"></span>
+											</button>
+											<button class="btn btn-info pull-right" ng-click="chat(user)">
+												<span class="glyphicon glyphicon-comment"></span>
+											</button>
+											<h5 class="pull-left"> {{usuario.curso}}</h5
+										</td>
+									</tr>
+								</table>
+							</div>
+							<!-- (fim) listar usuarios onlines -->
+							<!--
+							<a href="#">
+								<span class="status-on"></span>
+								<span class="status-ausente"></span>
+								<span class="user-img"></span>
+								<span class="user-title">João Paulo Vilela</span>
+								<p class="user-desc">Sistemas de Informação</p>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="status-on"></span>
+								<span class="status-ausente"></span>
+								<span class="user-img"></span>
+								<span class="user-title">Kenneth Colina</span>
+								<p class="user-desc">Sistemas de Informação</p>
+							</a>
+						-->
+						</li>
+					</ul>
+					<div class="message-container">
+						<div class="message-north">
+					<div class="message-thread">
+						<div class="audio-video">
+							<img class="img-audio" alt="audio" src="images/audio.png"  width="30" height="30" />
+							<img class="img-video" alt="video" src="images/video.png"  width="30" height="30" />
+						</div>
+						<div class="message bubble-left">
+							<label class="message-user">João Paulo Vilela</label>
+							<label class="message-timestamp">2 Horas atrás</label>
+							<p>Qual é o melhor time do mundo?</p>
+						</div>
+						<div class="message bubble-right">
+							<label class="message-user">Kenneth Colina</label>
+							<label class="message-timestamp">2 Horas atrás</label>
+							<p>É claro que é o Galão da Massa!</p>
+						</div>
+					</div>
+				</div>
+				<div class="message-south">
+					<textarea cols="20" rows="3"></textarea>
+					<button>Enviar</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="../javascripts/lib/jquery-1.11.3.min.js"></script>
+		<script src="../stylesheets/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../javascripts/lib/angular.min.js"></script>
+		<script src="../javascripts/lib/angular-route.js"></script>
+		<script src="../javascripts/lib/angular-animate.min.js"></script>
+		<script src="../javascripts/lib/socket.io.js"></script>
+		<script src="../javascripts/app.js"></script>
+		<script src="../javascripts/controllers/mainCtrl.js"></script>
+		<script src="../javascripts/lib/angular-local-storage.js"></script>
+	</body>
+</html>
