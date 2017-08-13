@@ -150,7 +150,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	};
 
 	var ice = {"iceServers": [
-		{"url": "stun:stun.l.google.com:19302"}
+		{"urls": "stun:stun.l.google.com:19302"}
 	]};
 
 	var pc = null;
@@ -161,7 +161,8 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 	var callbackSuccess = function(stream) {
 		if ($scope.tipo == "video") {
 			$scope.video = document.querySelector('#video');
-			$scope.video.src = window.URL.createObjectURL(stream);
+//			$scope.video.src = window.URL.createObjectURL(stream);
+			$scope.video.srcObject = window.stream;
 		}
 		getMediaSuccess(stream);
 	};
@@ -262,7 +263,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 		}
 
 		function onStreamAdded(evt) {
-			var url = URL.createObjectURL(evt.stream);
+			var url = evt.stream;
 			console.log('entrei em stream add');
 			window.stream = url;
 
