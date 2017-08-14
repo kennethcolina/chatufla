@@ -16,4 +16,8 @@ var app = angular.module('webrtc', ['ngRoute', 'ngAnimate', 'LocalStorageModule'
         controller: 'mainCtrl'
     });
 
+    $routeProvider.when('/sair', {
+        templateUrl: '../../views/login.html',
+        controller: 'mainCtrl'
+    });
 });

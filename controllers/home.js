@@ -38,10 +38,11 @@ module.exports = (app) => {
         console.log(usuario);
         if (usuario != null) {
           if (usuario.senha == data.senha) {
-              //req.session.usuario = usuario;
-              res.send(usuario);
+            req.session.usuario = usuario;
+            console.log("SESSION: ", req.session.usuario);
+            res.send(usuario);
           } else {
-              res.send(false);
+            res.send(false);
           }
         } else {
             res.send("null");

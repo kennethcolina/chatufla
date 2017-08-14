@@ -1,5 +1,6 @@
 const signaling = (server) => {
 	const users = {};
+
 	const io = require('socket.io')(server);
 
 	io.on('connection', function(socket) {
@@ -11,7 +12,7 @@ const signaling = (server) => {
 		}
 
 	  socket.on('disconnect', function(data) {
-		  removeUser(socket.email);
+		  removeUser(socket.nome);
 	  });
 
 	  socket.on('sair', function(data) {
@@ -22,9 +23,9 @@ const signaling = (server) => {
 	  socket.on('entrar', (msg) => {
 
 	    console.log(msg.nome+' entrou');
-			users[msg.email] = {"socket": socket};
+			users[msg.nome] = {"socket": socket};
 	    socket.emit('entrar' , JSON.stringify({"nomeLogado":msg.nome}));
-			socket.email = msg.email;
+			socket.nome = msg.nome;
 	    io.emit('lista', JSON.stringify(Object.keys(users)));
 	  });
 

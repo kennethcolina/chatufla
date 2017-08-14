@@ -32,15 +32,15 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 
   socket.on('lista', function(data) {
 		var lista = JSON.parse(data);
-		var i = lista.indexOf($scope.usuario.email);
+		var i = lista.indexOf($scope.usuario.nome); // alterei nome
 		lista.splice(i,1);
 		$scope.list = lista;
 		$scope.$apply();
 	});
 
   $scope.logout = function() {
-		socket.emit('sair', $scope.usuario.email);
-		window.location.href = '/';
+		socket.emit('sair', $scope.usuario.nome);
+		window.location.href = '/sair';
     $scope.usuario = {};
 	};
 
