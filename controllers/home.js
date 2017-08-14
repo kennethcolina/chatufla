@@ -38,7 +38,7 @@ module.exports = (app) => {
         console.log(usuario);
         if (usuario != null) {
           if (usuario.senha == data.senha) {
-              //req.session.usuario = usuario;
+              req.session.usuario = usuario;
               res.send(usuario);
           } else {
               res.send(false);
@@ -47,20 +47,6 @@ module.exports = (app) => {
             res.send("null");
         }
       });
-          /* else {
-              Usuario.create(req.body.usuario, (erro, usuario) => {
-                if (erro) {
-                  res.redirect('/');
-                } else {
-                  req.session.usuario = usuario;
-                  res.redirect('/main');
-                }
-              });
-            }
-        } else {
-          console.log("Usuário não encontrado no banco de dados");
-        }
-      });*/
     },
     logout: (req, res) => {
       req.session.destroy(erro => {

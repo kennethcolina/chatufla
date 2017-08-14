@@ -3,7 +3,7 @@ const signaling = (server) => {
 	const io = require('socket.io')(server);
 
 	io.on('connection', function(socket) {
-
+		
   	const removeUser = (user) => {
 		  console.log(user+' saiu.');
 		  delete users[user];
@@ -33,7 +33,7 @@ const signaling = (server) => {
 
 	  socket.on('chamada', (msg) => {
 		  const chamada = JSON.parse(msg);
-		  console.log(chamada);
+		  console.log("CHAMADA",chamada);
 		  if (users[chamada.para]) {
 			  users[chamada.para].socket.emit('chamada', msg);
 			  console.log("Mensagem enviada de "+chamada.dados.de+" para "+chamada.para);

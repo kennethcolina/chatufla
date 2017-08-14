@@ -58,7 +58,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 			isInCall = false;
 			isCaller = false;
 			$scope.call = false;
-			$scope.chat = false; //alterei
+			$scope.chat = false; // alterei
 		};
 	};
 
@@ -82,13 +82,16 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 			alert("Não foi possivel realizar a operação. Erro: " + chamada.error);
 			return;
 		}
+    console.log(chamada);
+    console.log(chamada.dados.resposta);
+
 		if (chamada.bye) {
 			console.log("Chamada desligada pelo peer remoto");
 			pc.close();
 			isInCall = false;
 			isCaller = false;
 			$scope.call = false;
-			$scope.chat = false; //alterei
+			$scope.chat = false;  // alterei
 			$scope.$apply();
 		}
 		if (chamada.dados.oferta) {
@@ -120,6 +123,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 						$scope.recebendo = false;
 						isCaller = false;
 						$scope.call = false;
+						$scope.call = false;  // alterei
 					}
 				}
 				);
@@ -160,7 +164,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 		if ($scope.tipo == "video") {
 			$scope.video = document.querySelector('#video');
 			$scope.video.src = window.URL.createObjectURL(stream);
-			//$scope.video.src = window.stream; //inventei
+			//$scope.video.src = window.stream; // alterei
 			//$scope.video.srcObject = window.stream;
 		}
 		getMediaSuccess(stream);
@@ -269,7 +273,7 @@ app.controller('mainCtrl', ['$scope', 'localStorageService', function($scope, lo
 			if ($scope.tipo == 'video') {
 				console.log("Eu estou aqui!, VIDEO");
 				setVideo(url);
-				setAudio(url); //adicionei para parar o ring.mp3
+				setAudio(url); // adicionei para cancelar o ring.mp3
 			} else if ($scope.tipo == 'voz') {
 				console.log("Eu estou aqui!, VOZ");
 				setAudio(url);
