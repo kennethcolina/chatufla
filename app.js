@@ -21,13 +21,14 @@ const express = require('express')
                  , resave: false
                  , saveUninitialized: true
                  , store: store };
-*/
+
   //var options = { host: 'localhost', port: 6379, client: client };
   //var sessOpts = { store: new RedisStore(options)
                  , secret: cfg.SECRET
                  , key: cfg.KEY
                  , resave: false
                  , saveUninitialized: true };
+                 */
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
