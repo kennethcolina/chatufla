@@ -6,36 +6,13 @@ const express = require('express')
   , cookieParser = require('cookie-parser')
   , session = require('express-session')
   , path = require('path')
-  //, redisAdapter = require('socket.io-redis')
-  , client = require('redis').createClient()
+//  , client = require('redis').createClient()
   , client = redis.createClient(process.env.REDISCLOUD_URL, {no_ready_check: true});
   , RedisStore = require('connect-redis')(session)
   , app = express()
   , server = require('http').Server(app)
-  /*, io = require('socket.io')(server)
-  , redis = require('./lib/redis_connect')
-  , ExpressStore = redis.getExpressStore()
-  , SocketStore = redis.getSocketStore()*/
   , signaling = require('./signaling.js')(server);
 
-  /*var cookie = cookieParser(cfg.SECRET)
-    , storeOpts = {client: redis.getClient(), prefix: cfg.KEY}
-    , store = new ExpressStore(storeOpts)
-    , sessOpts = {  secret: cfg.SECRET
-                  , key: cgf.KEY, store: store
-                  , cookie: cookie
-                  , resave: false
-                  , saveUninitialized: true };
-*/
-  //var cookie = cookieParser(cfg.SECRET);
-  /*var cookie = cookieParser(cfg.SECRET)
-    , store = new session.MemoryStore()
-    , sessOpts = { secret: cfg.SECRET
-                 , key: cfg.KEY
-                 , resave: false
-                 , saveUninitialized: true
-                 , store: store };
-*/
   var options = { host: 'localhost', port: 6379, client: client };
   var sessOpts = { store: new RedisStore(options)
                  , secret: cfg.SECRET
@@ -53,30 +30,11 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-//app.use(session());
-//app.use(cookie);
 app.use(session(sessOpts));
 
 // comentei session app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-/*
-io.set('store', new SocketStore);
-//io.adapter(redisAdapter(cfg.REDIS));
-io.use(function(socket, next) {
-  var data = socket.request;
-  cookie(data, {}, function(err) {
-    var sessionID = data.signedCookies[cfg.KEY];
-    store.get(sessionID, function(err, session) {
-      if (err || !session) {
-        return next(new Error('not authorized'));
-      } else {
-        socket.handshake.session = session;
-        return next();
-      }
-    });
-  })
-});
-*/
+
 consign()
   .include('models')
   .then('controllers')
