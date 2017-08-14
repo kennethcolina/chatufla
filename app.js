@@ -63,14 +63,13 @@ consign()
   .then('controllers')
   .then('routes')
   .into(app);
-
+/*
 server.listen(3000, () => {
   console.log("Chatufla listening on port 3000.");
 });
-/*
+*/
 server.listen(process.env.PORT || 5000, () => {
   console.log("Chatufla listening on port " + process.env.PORT + ".");
 });
-*/
 
 module.exports = app;
