@@ -3,7 +3,7 @@ const signaling = (server) => {
 	const io = require('socket.io')(server);
 
 	io.on('connection', function(socket) {
-		
+
   	const removeUser = (user) => {
 		  console.log(user+' saiu.');
 		  delete users[user];
@@ -11,7 +11,7 @@ const signaling = (server) => {
 		}
 
 	  socket.on('disconnect', function(data) {
-		  removeUser(socket.username);
+		  removeUser(socket.email);
 	  });
 
 	  socket.on('sair', function(data) {
@@ -20,14 +20,11 @@ const signaling = (server) => {
 
 	  console.log('usuario conectou');
 	  socket.on('entrar', (msg) => {
-		  if (users[msg.email]) {
-			  socket.emit('entrar',JSON.stringify({"error":"Usuario "+msg.email+" já existe!"}));
-			  return;
-		  }
+
 	    console.log(msg.nome+' entrou');
 			users[msg.email] = {"socket": socket};
 	    socket.emit('entrar' , JSON.stringify({"nomeLogado":msg.nome}));
-			socket.username = msg.nome;
+			socket.email = msg.email;
 	    io.emit('lista', JSON.stringify(Object.keys(users)));
 	  });
 
