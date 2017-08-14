@@ -38,7 +38,7 @@ module.exports = (app) => {
         console.log(usuario);
         if (usuario != null) {
           if (usuario.senha == data.senha) {
-              req.session.usuario = usuario;
+              //req.session.usuario = usuario;
               res.send(usuario);
           } else {
               res.send(false);

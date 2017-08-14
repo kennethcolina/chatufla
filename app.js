@@ -7,8 +7,8 @@ const express = require('express')
   , session = require('express-session')
   , path = require('path')
   //, redisAdapter = require('socket.io-redis')
-  , client = require('redis').createClient()
-  , RedisStore = require('connect-redis')(session)
+  //, client = require('redis').createClient()
+  //, RedisStore = require('connect-redis')(session)
   , app = express()
   , server = require('http').Server(app)
   //, io = require('socket.io')(server)
@@ -22,8 +22,8 @@ const express = require('express')
                  , saveUninitialized: true
                  , store: store };
 */
-  var options = { host: 'localhost', port: 6379, client: client };
-  var sessOpts = { store: new RedisStore(options)
+  //var options = { host: 'localhost', port: 6379, client: client };
+  //var sessOpts = { store: new RedisStore(options)
                  , secret: cfg.SECRET
                  , key: cfg.KEY
                  , resave: false
@@ -37,7 +37,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session(sessOpts));
+//app.use(session(sessOpts));
 
 // comentei session app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
