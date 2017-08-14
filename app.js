@@ -7,8 +7,9 @@ const express = require('express')
   , session = require('express-session')
   , path = require('path')
   //, redisAdapter = require('socket.io-redis')
-  , client = require('redis').createClient()
-  , RedisStore = require('connect-redis')(session)
+  //, client = require('redis').createClient()
+  , client = require('redis').createClient(process.env.REDISCLOUD_URL, {no_ready_check: true})
+  //, RedisStore = require('connect-redis')(session)
   , app = express()
   , server = require('http').Server(app)
   /*, io = require('socket.io')(server)
@@ -81,14 +82,13 @@ consign()
   .then('controllers')
   .then('routes')
   .into(app);
-
+/*
 server.listen(3000, () => {
   console.log("Chatufla listening on port 3000.");
 });
-/*
+*/
 server.listen(process.env.PORT || 5000, () => {
   console.log("Chatufla listening on port " + process.env.PORT + ".");
 });
-*/
 
 module.exports = app;
