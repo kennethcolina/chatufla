@@ -6,8 +6,8 @@ const express = require('express')
   , cookieParser = require('cookie-parser')
   , session = require('express-session')
   , path = require('path')
-//  , client = require('redis').createClient()
-  , client = require('redis').createClient(process.env.REDISCLOUD_URL, {no_ready_check: true})
+  , client = require('redis').createClient()
+//  , client = require('redis').createClient(process.env.REDISCLOUD_URL, {no_ready_check: true})
   , RedisStore = require('connect-redis')(session)
   , app = express()
   , server = require('http').Server(app)
@@ -40,13 +40,14 @@ consign()
   .then('controllers')
   .then('routes')
   .into(app);
-/*
+
 server.listen(3000, () => {
   console.log("Chatufla listening on port 3000.");
 });
-*/
+
+/*
 server.listen(process.env.PORT || 5000, () => {
   console.log("Chatufla listening on port " + process.env.PORT + ".");
 });
-
+*/
 module.exports = app;
